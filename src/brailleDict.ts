@@ -1,0 +1,311 @@
+const brailleDict = {
+  " ": [],
+  "⠁": [{ x: 0, y: 2, targetObjectId: "1", isHighlighted: false }],
+  "⠂": [{ x: 0, y: 1, targetObjectId: "1", isHighlighted: false }],
+  "⠃": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠄": [{ x: 0, y: 0, targetObjectId: "1", isHighlighted: false }],
+  "⠅": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠆": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠇": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠈": [{ x: 1, y: 2, targetObjectId: "1", isHighlighted: false }],
+  "⠉": [
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠊": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠋": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠌": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠍": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠎": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠏": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠐": [{ x: 1, y: 1, targetObjectId: "1", isHighlighted: false }],
+  "⠑": [
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠒": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠓": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠔": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠕": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠖": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠗": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠘": [
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠙": [
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠚": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠛": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠜": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠝": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠞": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠟": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠠": [{ x: 1, y: 0, targetObjectId: "1", isHighlighted: false }],
+  "⠡": [
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠢": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠣": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠤": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠥": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠦": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠧": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠨": [
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠩": [
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠪": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠫": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠬": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠭": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠮": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠯": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠰": [
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠱": [
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠲": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠳": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠴": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠵": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠶": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠷": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠸": [
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠹": [
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠺": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠻": [
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠼": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠽": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠾": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+  "⠿": [
+    { x: 0, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 0, y: 2, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 0, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 1, targetObjectId: "1", isHighlighted: false },
+    { x: 1, y: 2, targetObjectId: "1", isHighlighted: false },
+  ],
+};
+
+export default brailleDict;
