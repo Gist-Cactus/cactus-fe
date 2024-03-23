@@ -10,7 +10,11 @@ import BrailleSencenceScreen from "./BrailleSentenceScreen";
 import ButtonSum from "./ButtonSum";
 import DotpadScreen from "./DotpadScreen";
 
-const Dotpad = () => {
+interface DotpadProps {
+  isLayerView: boolean;
+}
+
+const Dotpad = ({ isLayerView }: DotpadProps) => {
   // screen-related
   const SCREEN_MAX_X = 64;
   const SCREEN_MAX_Y = 48;
@@ -86,12 +90,19 @@ const Dotpad = () => {
     >
       <DotpadScreen maxX={SCREEN_MAX_X} maxY={SCREEN_MAX_Y} dots={tempDots2} />
 
-      <ButtonSum onLeftArrowClick={goPrevPage} onRightArrowClick={goNextPage} />
+      {!isLayerView && (
+        <>
+          <ButtonSum
+            onLeftArrowClick={goPrevPage}
+            onRightArrowClick={goNextPage}
+          />
 
-      <BrailleSencenceScreen
-        maxCharacters={BRAILLE_MAX_CHARACTERS}
-        sentence={partialBraileSentence}
-      />
+          <BrailleSencenceScreen
+            maxCharacters={BRAILLE_MAX_CHARACTERS}
+            sentence={partialBraileSentence}
+          />
+        </>
+      )}
     </div>
   );
 };

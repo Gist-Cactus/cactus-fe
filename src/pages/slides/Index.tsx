@@ -4,7 +4,7 @@ import Dotpad from "src/components/dotpad/Dotpad";
 import PureButton from "src/components/PureButton";
 import { easeOutCubic } from "src/defaults";
 import { Slide } from "src/types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import Overview from "./Overview";
 import SlideView from "./SlideView";
@@ -32,6 +32,18 @@ const SlidesPage = () => {
   const [isBoundedView, setIsBoundedView] = useState(false);
   const [isDotpadView, setIsDotpadView] = useState(false);
   const [isLayerView, setIsLayerView] = useState(false);
+
+  const handleLayerViewClick = () => {
+    if (!isLayerView) {
+      setIsLayerView(true);
+
+      setIsSlideView(true);
+      setIsBoundedView(true);
+      setIsDotpadView(true);
+    } else {
+      setIsLayerView(false);
+    }
+  };
 
   const viewObject = [
     {
@@ -95,8 +107,10 @@ const SlidesPage = () => {
               <ViewScaleWrapper
                 isSmall={!(!isSlideView && !isBoundedView && isDotpadView)}
                 scale={0.8}
+                isLayerView={isLayerView}
+                zIndex={1}
               >
-                <Dotpad />
+                <Dotpad isLayerView={isLayerView} />
               </ViewScaleWrapper>
             )}
           </ViewsWrapper>
@@ -104,9 +118,7 @@ const SlidesPage = () => {
           <ViewSelector
             view={viewObject}
             isLayerView={isLayerView}
-            onLayerViewClick={() => {
-              setIsLayerView((prev) => !prev);
-            }}
+            onLayerViewClick={handleLayerViewClick}
           />
         </SlideViewsWrapper>
       </EntireWrapper>
@@ -154,6 +166,12 @@ const ViewsWrapper = styled.div<{ $isLayerView: boolean }>`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+
+  ${(props) =>
+    props.$isLayerView &&
+    css`
+      gap: -100px;
+    `}
 
   perspective: 1000px;
 `;
