@@ -82,7 +82,6 @@ const Dotpad = () => {
         justifyContent: "center",
         alignItems: "center",
         gap: SLIDE_SENTENCE_GAP,
-        padding: "20px",
       }}
     >
       <DotpadScreen maxX={SCREEN_MAX_X} maxY={SCREEN_MAX_Y} dots={tempDots2} />

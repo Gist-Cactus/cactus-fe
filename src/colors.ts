@@ -2,6 +2,7 @@ const colors = {
   common: {
     black: "#000000",
     white: "#FFFFFF",
+    background: "#1E1E1E",
   },
   dots: {
     disabled: "#3A3A3A",
