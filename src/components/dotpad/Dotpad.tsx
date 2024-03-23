@@ -1,6 +1,8 @@
 import { useState } from "react";
 import cactusArt from "src/assets/cactusArt";
+import dotRenderer from "src/dotpadScreenUtil/drawer/dotRenderer";
 import patternDrawer from "src/dotpadScreenUtil/drawer/patternDrawer";
+import marks from "src/dotpadScreenUtil/presets/marks/marks";
 import patterns from "src/dotpadScreenUtil/presets/patterns/patterns";
 import brailleConverter from "src/util/brailleConverter";
 
@@ -14,10 +16,25 @@ const Dotpad = () => {
   const SCREEN_MAX_Y = 48;
 
   const tempDots1 = cactusArt;
-  const tempDots2 = patternDrawer({
-    start: { x: 10, y: 10 },
-    end: { x: 20, y: 20 },
-    pattern: patterns.images,
+  const tempDots2 = dotRenderer({
+    patterns: [
+      patternDrawer({
+        start: { x: 10, y: 10 },
+        end: { x: 20, y: 20 },
+        pattern: patterns.images,
+      }),
+      patternDrawer({
+        start: { x: 15, y: 15 },
+        end: { x: 25, y: 25 },
+        pattern: patterns.title,
+      }),
+      patternDrawer({
+        start: { x: 30, y: 30 },
+        end: { x: 40, y: 40 },
+        pattern: patterns.diagram,
+      }),
+    ],
+    marks: [marks.text({ x: 18, y: 18 }), marks.diagram({ x: 34, y: 33 })],
   });
 
   const SLIDE_SENTENCE_GAP = "20px";
@@ -65,9 +82,10 @@ const Dotpad = () => {
         justifyContent: "center",
         alignItems: "center",
         gap: SLIDE_SENTENCE_GAP,
+        padding: "20px",
       }}
     >
-      <DotpadScreen maxX={SCREEN_MAX_X} maxY={SCREEN_MAX_Y} dots={tempDots1} />
+      <DotpadScreen maxX={SCREEN_MAX_X} maxY={SCREEN_MAX_Y} dots={tempDots2} />
 
       <ButtonSum onLeftArrowClick={goPrevPage} onRightArrowClick={goNextPage} />
 
