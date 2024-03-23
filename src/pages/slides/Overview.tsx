@@ -1,4 +1,5 @@
 import colors from "src/colors";
+import { easeOutCubic } from "src/defaults";
 import { Slide } from "src/types";
 import styled, { keyframes } from "styled-components";
 
@@ -69,7 +70,7 @@ const OverviewWrapper = styled.div<{ $isOverviewOpen: boolean }>`
 
   margin-left: ${(props) => (props.$isOverviewOpen ? "0" : "-300px")};
 
-  transition: margin-left ease-in-out 0.5s;
+  transition: margin-left ${easeOutCubic} 0.5s;
 `;
 
 const OverviewTitleWrapper = styled.div`

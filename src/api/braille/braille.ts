@@ -5,7 +5,7 @@ const BRAILLE_BASE_URL = "https://fastbraille.com/api";
 
 import replaceSpaceBraille from "src/util/replaceSpaceBraille";
 
-import { noBaseUrlApi } from "./axios";
+import { noBaseUrlApi } from "../axios";
 
 interface GetBrailleTranslationResponse {
   braille: string;

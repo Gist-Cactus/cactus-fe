@@ -2,8 +2,9 @@ import { useState } from "react";
 import Icons from "src/assets/Icons";
 import Dotpad from "src/components/dotpad/Dotpad";
 import PureButton from "src/components/PureButton";
+import { easeOutCubic } from "src/defaults";
 import { Slide } from "src/types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import Overview from "./Overview";
 import SlideView from "./SlideView";
@@ -31,6 +32,18 @@ const SlidesPage = () => {
   const [isBoundedView, setIsBoundedView] = useState(false);
   const [isDotpadView, setIsDotpadView] = useState(false);
   const [isLayerView, setIsLayerView] = useState(false);
+
+  const handleLayerViewClick = () => {
+    if (!isLayerView) {
+      setIsLayerView(true);
+
+      setIsSlideView(true);
+      setIsBoundedView(true);
+      setIsDotpadView(true);
+    } else {
+      setIsLayerView(false);
+    }
+  };
 
   const viewObject = [
     {
@@ -79,7 +92,7 @@ const SlidesPage = () => {
           isOverviewOpen={isOverviewOpen}
         />
         <SlideViewsWrapper>
-          <ViewsWrapper>
+          <ViewsWrapper $isLayerView={isLayerView}>
             {isSlideView && (
               <SlideView
                 src={
@@ -87,14 +100,17 @@ const SlidesPage = () => {
                   ""
                 }
                 isSmall={!(isSlideView && !isBoundedView && !isDotpadView)}
+                isLayerView={isLayerView}
               />
             )}
             {isDotpadView && (
               <ViewScaleWrapper
                 isSmall={!(!isSlideView && !isBoundedView && isDotpadView)}
                 scale={0.8}
+                isLayerView={isLayerView}
+                zIndex={1}
               >
-                <Dotpad />
+                <Dotpad isLayerView={isLayerView} />
               </ViewScaleWrapper>
             )}
           </ViewsWrapper>
@@ -102,9 +118,7 @@ const SlidesPage = () => {
           <ViewSelector
             view={viewObject}
             isLayerView={isLayerView}
-            onLayerViewClick={() => {
-              setIsLayerView((prev) => !prev);
-            }}
+            onLayerViewClick={handleLayerViewClick}
           />
         </SlideViewsWrapper>
       </EntireWrapper>
@@ -126,12 +140,13 @@ const ToggleButton = styled(PureButton)<{ $isOverviewOpen: boolean }>`
   left: ${(props) => (props.$isOverviewOpen ? "300px" : "0")};
   padding: 10px;
 
-  transition: left ease-in-out 0.5s;
+  transition: left ${easeOutCubic} 0.5s;
+  z-index: 1;
 `;
 
 const ToggleOverviewIconWrapper = styled.div<{ $isOverviewOpen: boolean }>`
-  transform: rotate(${(props) => (props.$isOverviewOpen ? "180deg" : "0")});
-  transition: transform ease-in-out 0.5s;
+  transform: rotate(${(props) => (props.$isOverviewOpen ? "-180deg" : "0")});
+  transition: transform ${easeOutCubic} 0.5s;
 `;
 
 const SlideViewsWrapper = styled.div`
@@ -144,13 +159,21 @@ const SlideViewsWrapper = styled.div`
   flex-direction: column;
 `;
 
-const ViewsWrapper = styled.div`
+const ViewsWrapper = styled.div<{ $isLayerView: boolean }>`
   flex-grow: 1;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+
+  ${(props) =>
+    props.$isLayerView &&
+    css`
+      gap: -100px;
+    `}
+
+  perspective: 1000px;
 `;
 
 export default SlidesPage;
