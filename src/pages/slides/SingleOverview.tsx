@@ -1,16 +1,22 @@
 import colors from "src/colors";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface SingleOverviewProps {
   src: string;
   id: number;
+  isSelected: boolean;
   onClick?: () => void;
 }
 
-const SingleOverview = ({ src, id, onClick }: SingleOverviewProps) => {
+const SingleOverview = ({
+  src,
+  id,
+  isSelected,
+  onClick,
+}: SingleOverviewProps) => {
   return (
     <SingleOverviewWrapper onClick={onClick}>
-      <OverviewImage src={src} />
+      <OverviewImage src={src} $isSelected={isSelected} />
 
       <p
         style={{
@@ -36,8 +42,13 @@ const SingleOverviewWrapper = styled.div`
   align-items: center;
 `;
 
-const OverviewImage = styled.img`
+const OverviewImage = styled.img<{ $isSelected: boolean }>`
   width: 180px;
+  ${(props) =>
+    props.$isSelected &&
+    css`
+      outline: 1px solid ${colors.common.white};
+    `}
 `;
 
 export default SingleOverview;

@@ -38,10 +38,23 @@ const SlidesPage = () => {
               Presentation Title for Blind People
             </h1>
 
-            <p style={{ fontSize: "14px" }}>SESSION</p>
+            <p style={{ fontSize: "12px" }}>
+              SESSION{" "}
+              <span style={{ textDecoration: "underline", color: "#707070" }}>
+                12ejjlksfnd
+              </span>
+            </p>
           </OverviewTitleWrapper>
           {imageSequence.map((item) => (
-            <SingleOverview key={item.id} id={item.id} src={item.src} />
+            <SingleOverview
+              key={item.id}
+              id={item.id}
+              src={item.src}
+              isSelected={currentSlide === item.id}
+              onClick={() => {
+                setCurrentSlide(item.id);
+              }}
+            />
           ))}
         </OverviewWrapper>
 
