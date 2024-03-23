@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import { postPdf } from "src/api/pdf/pdf";
+import { useEffect, useState } from "react";
+import { getPdfStatus, postPdf } from "src/api/pdf/pdf";
 import { createSession } from "src/api/session/session";
 import Icons from "src/assets/Icons";
 import colors from "src/colors";
@@ -9,6 +9,9 @@ import styled from "styled-components";
 
 const HomePage = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isPdfUploaded, setIsPdfUploaded] = useState(false);
+  const [sessionUuid, setSessionUuid] = useState<string | null>(null);
+  const [isPdfProcessing, setIsPdfProcessing] = useState<boolean | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -17,6 +20,10 @@ const HomePage = () => {
 
   const pdfSubmitMutation = useMutation({
     mutationFn: postPdf,
+    onSuccess: () => {
+      setIsPdfUploaded(true);
+      setIsPdfProcessing(true);
+    },
   });
 
   const handleSubmit = async () => {
@@ -28,15 +35,39 @@ const HomePage = () => {
     });
     if (!createSessionResponse.uuid) return;
 
+    setSessionUuid(createSessionResponse.uuid);
     pdfSubmitMutation.mutate({
       sessionUuid: createSessionResponse.uuid,
       file: selectedFile,
     });
   };
 
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    if (isPdfUploaded && sessionUuid) {
+      const pollPdfStatus = async () => {
+        const pdfStatus = await getPdfStatus({ sessionUuid });
+        console.log("PDF status:", pdfStatus);
+
+        if (pdfStatus.status === "COMPLETE") {
+          // PDF processing is complete, perform any necessary actions
+          setIsPdfProcessing(false);
+          clearInterval(intervalId);
+        }
+      };
+
+      intervalId = setInterval(pollPdfStatus, 1000);
+    }
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [isPdfUploaded, sessionUuid]);
+
   return (
     <EntireWrapper>
-      <Loading />
+      {isPdfProcessing === true && <Loading />}
       {selectedFile && (
         <FilenameViewer>
           <p
