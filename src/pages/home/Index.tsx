@@ -80,7 +80,10 @@ const HomePage = () => {
             {selectedFile.name}
           </p>
 
-          <Icons.FastArrowRight onClick={handleSubmit} />
+          <Icons.FastArrowRight
+            onClick={handleSubmit}
+            style={{ cursor: "pointer" }}
+          />
         </FilenameViewer>
       )}
 
