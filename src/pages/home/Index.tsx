@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { postPdf } from "src/api/pdf/pdf";
+import { createSession } from "src/api/session/session";
 import Icons from "src/assets/Icons";
 import colors from "src/colors";
 import styled from "styled-components";
@@ -17,15 +18,19 @@ const HomePage = () => {
     mutationFn: postPdf,
   });
 
-  const handleSubmit = () => {
-    if (selectedFile) {
-      console.log("Selected PDF file:", selectedFile.name);
+  const handleSubmit = async () => {
+    if (!selectedFile) return;
+    console.log("Selected PDF file:", selectedFile.name);
 
-      pdfSubmitMutation.mutate({
-        sessionUuid: "test1",
-        file: selectedFile,
-      });
-    }
+    const createSessionResponse = await createSession({
+      title: Date.now().toString(),
+    });
+    if (!createSessionResponse.uuid) return;
+
+    pdfSubmitMutation.mutate({
+      sessionUuid: createSessionResponse.uuid,
+      file: selectedFile,
+    });
   };
 
   return (
