@@ -21,3 +21,23 @@ export const postPdf = async (requestData: PostPdfRequestData) => {
 
   return response.data;
 };
+
+interface GetPdfStatusRequestData {
+  sessionUuid: string;
+}
+
+interface GetPdfStatusResponseData {
+  id: number;
+  title: string;
+  status: "PENDING" | "COMPLETE";
+  createdAt: Date;
+  sessionUuid: string;
+}
+
+export const getPdfStatus = async (requestData: GetPdfStatusRequestData) => {
+  const response = await api.get<GetPdfStatusResponseData>(
+    `/session/${requestData.sessionUuid}/presentation`,
+  );
+
+  return response.data;
+};

@@ -4,6 +4,7 @@ import { postPdf } from "src/api/pdf/pdf";
 import { createSession } from "src/api/session/session";
 import Icons from "src/assets/Icons";
 import colors from "src/colors";
+import Loading from "src/components/loading/Loading";
 import styled from "styled-components";
 
 const HomePage = () => {
@@ -35,6 +36,7 @@ const HomePage = () => {
 
   return (
     <EntireWrapper>
+      <Loading />
       {selectedFile && (
         <FilenameViewer>
           <p
