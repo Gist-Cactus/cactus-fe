@@ -21,7 +21,7 @@ const DotpadScreen = ({ maxX, maxY, dots }: DotpadScreenProps) => {
         <div key={y} style={{ display: "flex", gap: GAP }}>
           {xArray.map((_, x) => {
             const selectedDot = dots.find((dot) => dot.x === x && dot.y === y);
-            if (selectedDot) {
+            if (selectedDot && !(selectedDot.enabled === false)) {
               return (
                 <SingleDot
                   key={`${x},${y}`}
