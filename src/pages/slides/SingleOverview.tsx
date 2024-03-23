@@ -40,6 +40,8 @@ const SingleOverviewWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
 `;
 
 const OverviewImage = styled.img<{ $isSelected: boolean }>`

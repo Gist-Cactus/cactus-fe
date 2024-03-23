@@ -1,9 +1,14 @@
 import { useState } from "react";
-import colors from "src/colors";
+import Icons from "src/assets/Icons";
 import Dotpad from "src/components/dotpad/Dotpad";
+import PureButton from "src/components/PureButton";
+import { Slide } from "src/types";
 import styled from "styled-components";
 
-import SingleOverview from "./SingleOverview";
+import Overview from "./Overview";
+import SlideView from "./SlideView";
+import ViewScaleWrapper from "./ViewScaleWrapper";
+import ViewSelector from "./ViewSelector";
 
 const SlidesPage = () => {
   const tempImageSequence = [
@@ -17,94 +22,135 @@ const SlidesPage = () => {
     { id: 7, src: "https://picsum.photos/id/8/800/600" },
   ];
 
-  const imageSequence = tempImageSequence;
+  const imageSequence: Slide[] = tempImageSequence;
 
+  const [isOverviewOpen, setIsOverviewOpen] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  const [isSlideView, setIsSlideView] = useState(true);
+  const [isBoundedView, setIsBoundedView] = useState(false);
+  const [isDotpadView, setIsDotpadView] = useState(false);
+  const [isLayerView, setIsLayerView] = useState(false);
+
+  const viewObject = [
+    {
+      name: "Slide",
+      isSelected: isSlideView,
+      onClick: () => {
+        setIsSlideView((prev) => !prev);
+      },
+    },
+    {
+      name: "Bounded",
+      isSelected: isBoundedView,
+      onClick: () => {
+        setIsBoundedView((prev) => !prev);
+      },
+    },
+    {
+      name: "Dotpad",
+      isSelected: isDotpadView,
+      onClick: () => {
+        setIsDotpadView((prev) => !prev);
+      },
+    },
+  ];
 
   return (
     <>
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <OverviewWrapper>
-          <OverviewTitleWrapper>
-            <h1 style={{ fontSize: "26px", fontWeight: "600" }}>
-              Presentation Title for Blind People
-            </h1>
+      <EntireWrapper>
+        <ToggleButton
+          $isOverviewOpen={isOverviewOpen}
+          onClick={() => {
+            setIsOverviewOpen((prev) => !prev);
+          }}
+        >
+          <ToggleOverviewIconWrapper $isOverviewOpen={isOverviewOpen}>
+            <Icons.FastArrowRight />
+          </ToggleOverviewIconWrapper>
+        </ToggleButton>
 
-            <p style={{ fontSize: "12px" }}>
-              SESSION{" "}
-              <span style={{ textDecoration: "underline", color: "#707070" }}>
-                12ejjlksfnd
-              </span>
-            </p>
-          </OverviewTitleWrapper>
-          {imageSequence.map((item) => (
-            <SingleOverview
-              key={item.id}
-              id={item.id}
-              src={item.src}
-              isSelected={currentSlide === item.id}
-              onClick={() => {
-                setCurrentSlide(item.id);
-              }}
-            />
-          ))}
-        </OverviewWrapper>
+        <Overview
+          title="Presentation Title for Blind People"
+          sessionId="SESSION_KEY"
+          slides={imageSequence}
+          currentSlide={currentSlide}
+          setCurrentSlide={setCurrentSlide}
+          isOverviewOpen={isOverviewOpen}
+        />
+        <SlideViewsWrapper>
+          <ViewsWrapper>
+            {isSlideView && (
+              <SlideView
+                src={
+                  imageSequence.find((item) => item.id === currentSlide)?.src ??
+                  ""
+                }
+                isSmall={!(isSlideView && !isBoundedView && !isDotpadView)}
+              />
+            )}
+            {isDotpadView && (
+              <ViewScaleWrapper
+                isSmall={!(!isSlideView && !isBoundedView && isDotpadView)}
+                scale={0.8}
+              >
+                <Dotpad />
+              </ViewScaleWrapper>
+            )}
+          </ViewsWrapper>
 
-        <SlideViewWrapper>
-          <Dotpad />
-        </SlideViewWrapper>
-      </div>
+          <ViewSelector
+            view={viewObject}
+            isLayerView={isLayerView}
+            onLayerViewClick={() => {
+              setIsLayerView((prev) => !prev);
+            }}
+          />
+        </SlideViewsWrapper>
+      </EntireWrapper>
     </>
   );
 };
 
-const OverviewWrapper = styled.div`
-  width: 300px;
-  height: 100%;
-
-  box-sizing: border-box;
-  padding-bottom: 100px;
-
+const EntireWrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-
-  border-right: 2px solid ${colors.common.white};
-
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  justify-content: center;
+  align-items: center;
 `;
 
-const OverviewTitleWrapper = styled.div`
-  width: 100%;
-  background-color: ${colors.common.background};
+const ToggleButton = styled(PureButton)<{ $isOverviewOpen: boolean }>`
+  position: absolute;
+  top: 0;
+  left: ${(props) => (props.$isOverviewOpen ? "300px" : "0")};
+  padding: 10px;
 
-  box-sizing: border-box;
-  padding: 12px 30px 30px 30px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  border-bottom: 2px solid ${colors.common.white};
-
-  margin-bottom: 40px;
+  transition: left ease-in-out 0.5s;
 `;
 
-const SlideViewWrapper = styled.div`
+const ToggleOverviewIconWrapper = styled.div<{ $isOverviewOpen: boolean }>`
+  transform: rotate(${(props) => (props.$isOverviewOpen ? "180deg" : "0")});
+  transition: transform ease-in-out 0.5s;
+`;
+
+const SlideViewsWrapper = styled.div`
   flex-grow: 1;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  flex-direction: column;
+`;
+
+const ViewsWrapper = styled.div`
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 `;
 
 export default SlidesPage;

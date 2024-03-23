@@ -5,3 +5,8 @@ export interface Dot {
   targetObjectId?: string;
   isHighlighted?: boolean;
 }
+
+export interface Slide {
+  id: number;
+  src: string;
+}
