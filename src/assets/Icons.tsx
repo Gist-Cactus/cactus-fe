@@ -185,11 +185,40 @@ const Perspective = ({
   );
 };
 
+const Xmark = ({
+  size = "24px",
+  fill = colors.common.white,
+  onClick,
+  style,
+}: IconProps) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      onClick={onClick}
+      style={style}
+    >
+      <path
+        d="M6.75729 17.2426L11.9999 12M17.2426 6.75736L11.9999 12M11.9999 12L6.75729 6.75736M11.9999 12L17.2426 17.2426"
+        stroke={fill}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 Icons.FastArrowRight = FastArrowRight;
 
 Icons.CheckboxChecked = CheckboxChecked;
 Icons.CheckboxUnchecked = CheckboxUnchecked;
 
 Icons.Perspective = Perspective;
+
+Icons.Xmark = Xmark;
 
 export default Icons;

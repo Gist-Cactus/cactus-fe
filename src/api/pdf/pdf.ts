@@ -5,11 +5,15 @@ interface PostPdfRequestData {
   file: File;
 }
 
+interface PostPdfResponseData {
+  id: number;
+}
+
 export const postPdf = async (requestData: PostPdfRequestData) => {
   const formData = new FormData();
   formData.append("file", requestData.file);
 
-  const response = await api.post(
+  const response = await api.post<PostPdfResponseData>(
     `/session/${requestData.sessionUuid}/presentation`,
     formData,
     {
@@ -27,11 +31,15 @@ interface GetPdfStatusRequestData {
 }
 
 interface GetPdfStatusResponseData {
-  id: number;
-  title: string;
-  status: "PENDING" | "COMPLETE";
-  createdAt: Date;
-  sessionUuid: string;
+  presentations: [
+    {
+      id: number;
+      title: string;
+      status: "PANDING" | "COMPLETE";
+      createdAt: Date;
+      sessionUuid: string;
+    },
+  ];
 }
 
 export const getPdfStatus = async (requestData: GetPdfStatusRequestData) => {

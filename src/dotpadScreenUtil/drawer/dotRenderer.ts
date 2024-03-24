@@ -1,6 +1,6 @@
 import { Dot } from "src/types";
 
-interface DotRendererProps {
+export interface DotRendererProps {
   patterns: Dot[][];
   marks: Dot[][];
 }

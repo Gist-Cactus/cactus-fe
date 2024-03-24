@@ -1,3 +1,4 @@
+import React from "react";
 import Icons from "src/assets/Icons";
 import colors from "src/colors";
 import styled from "styled-components";
@@ -51,10 +52,10 @@ const ViewSelector = ({
   return (
     <ViewSelectorWrapper>
       {view.map((item) => (
-        <>
+        <React.Fragment key={item.name}>
           <SelectorItem key={item.name} {...item} />
           <VLine />
-        </>
+        </React.Fragment>
       ))}
       <SelectorItem
         name="Layers"

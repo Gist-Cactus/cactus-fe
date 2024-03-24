@@ -1,9 +1,11 @@
 import { useState } from "react";
 import cactusArt from "src/assets/cactusArt";
+import { MAX_X, MAX_Y } from "src/defaults";
 import dotRenderer from "src/dotpadScreenUtil/drawer/dotRenderer";
 import patternDrawer from "src/dotpadScreenUtil/drawer/patternDrawer";
 import marks from "src/dotpadScreenUtil/presets/marks/marks";
 import patterns from "src/dotpadScreenUtil/presets/patterns/patterns";
+import { Dot } from "src/types";
 import brailleConverter from "src/util/brailleConverter";
 
 import BrailleSencenceScreen from "./BrailleSentenceScreen";
@@ -12,12 +14,13 @@ import DotpadScreen from "./DotpadScreen";
 
 interface DotpadProps {
   isLayerView: boolean;
+  dots: Dot[];
 }
 
-const Dotpad = ({ isLayerView }: DotpadProps) => {
+const Dotpad = ({ isLayerView, dots }: DotpadProps) => {
   // screen-related
-  const SCREEN_MAX_X = 64;
-  const SCREEN_MAX_Y = 48;
+  const SCREEN_MAX_X = MAX_X;
+  const SCREEN_MAX_Y = MAX_Y;
 
   const tempDots1 = cactusArt;
   const tempDots2 = dotRenderer({
@@ -88,7 +91,7 @@ const Dotpad = ({ isLayerView }: DotpadProps) => {
         gap: SLIDE_SENTENCE_GAP,
       }}
     >
-      <DotpadScreen maxX={SCREEN_MAX_X} maxY={SCREEN_MAX_Y} dots={tempDots2} />
+      <DotpadScreen maxX={SCREEN_MAX_X} maxY={SCREEN_MAX_Y} dots={dots} />
 
       {!isLayerView && (
         <>
