@@ -1,5 +1,7 @@
+import { useSetAtom } from "jotai";
 import colors from "src/colors";
 import { easeOutCubic } from "src/defaults";
+import { hoverElementIdAtom } from "src/store";
 import { BoundingBox } from "src/types";
 import styled, { css } from "styled-components";
 
@@ -18,9 +20,19 @@ const boundingBoxTypes = {
   diagram: "#9c9c00",
 };
 
-const BoundingBoxDrawer = ({ boundingBox }: { boundingBox: BoundingBox }) => {
+const BoundingBoxDrawer = ({
+  boundingBox,
+  onMouseEnter,
+  onMouseLeave,
+}: {
+  boundingBox: BoundingBox;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}) => {
   return (
     <div
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       style={{
         position: "absolute",
 
@@ -30,6 +42,7 @@ const BoundingBoxDrawer = ({ boundingBox }: { boundingBox: BoundingBox }) => {
         height: `${boundingBox.size.y}%`,
 
         outline: `4px solid ${boundingBoxTypes[boundingBox.type]}`,
+        cursor: "pointer",
       }}
     >
       <div
@@ -54,12 +67,24 @@ const BoundedView = ({
 
   boundingBoxes,
 }: BoundedViewProps) => {
+  const setHoverElementId = useSetAtom(hoverElementIdAtom);
+
   return (
     <BoundedViewWrapper $isSmall={isSmall} $isLayerView={isLayerView}>
       <img src={src} style={{ width: "100%" }} />
 
       {boundingBoxes.map((boundingBox, index) => (
-        <BoundingBoxDrawer key={index} boundingBox={boundingBox} />
+        <BoundingBoxDrawer
+          key={index}
+          boundingBox={boundingBox}
+          onMouseEnter={() => {
+            setHoverElementId(boundingBox.id);
+            console.log(boundingBox.id);
+          }}
+          onMouseLeave={() => {
+            setHoverElementId(null);
+          }}
+        />
       ))}
     </BoundedViewWrapper>
   );

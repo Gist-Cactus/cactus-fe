@@ -26,6 +26,7 @@ const boundingBoxToDotConverter = (
   const middle: Dot = {
     x: Math.floor((boundingBox.start.x + boundingBox.size.x / 2) * maxX),
     y: Math.floor((boundingBox.start.y + boundingBox.size.y / 2) * maxY),
+    targetObjectId: boundingBox.id,
   };
 
   const pattern =
@@ -47,7 +48,12 @@ const boundingBoxToDotConverter = (
           : marks.title(middle);
 
   return {
-    pattern: patternDrawer({ start, end, pattern }),
+    pattern: patternDrawer({
+      start,
+      end,
+      pattern,
+      targetObjectId: boundingBox.id,
+    }),
     mark,
   };
 };

@@ -1,10 +1,6 @@
 import { useState } from "react";
-import cactusArt from "src/assets/cactusArt";
+import cactusArt, { PieChart } from "src/assets/cactusArt";
 import { MAX_X, MAX_Y } from "src/defaults";
-import dotRenderer from "src/dotpadScreenUtil/drawer/dotRenderer";
-import patternDrawer from "src/dotpadScreenUtil/drawer/patternDrawer";
-import marks from "src/dotpadScreenUtil/presets/marks/marks";
-import patterns from "src/dotpadScreenUtil/presets/patterns/patterns";
 import { Dot } from "src/types";
 import brailleConverter from "src/util/brailleConverter";
 
@@ -18,31 +14,13 @@ interface DotpadProps {
 }
 
 const Dotpad = ({ isLayerView, dots }: DotpadProps) => {
+  const [isDiagramShown, setIsDiagramShown] = useState<boolean>(false);
+
   // screen-related
   const SCREEN_MAX_X = MAX_X;
   const SCREEN_MAX_Y = MAX_Y;
 
   const tempDots1 = cactusArt;
-  const tempDots2 = dotRenderer({
-    patterns: [
-      patternDrawer({
-        start: { x: 10, y: 10 },
-        end: { x: 20, y: 20 },
-        pattern: patterns.images,
-      }),
-      patternDrawer({
-        start: { x: 15, y: 15 },
-        end: { x: 25, y: 25 },
-        pattern: patterns.title,
-      }),
-      patternDrawer({
-        start: { x: 30, y: 30 },
-        end: { x: 40, y: 40 },
-        pattern: patterns.diagram,
-      }),
-    ],
-    marks: [marks.text({ x: 18, y: 18 }), marks.diagram({ x: 34, y: 33 })],
-  });
 
   const SLIDE_SENTENCE_GAP = "20px";
 
@@ -91,13 +69,23 @@ const Dotpad = ({ isLayerView, dots }: DotpadProps) => {
         gap: SLIDE_SENTENCE_GAP,
       }}
     >
-      <DotpadScreen maxX={SCREEN_MAX_X} maxY={SCREEN_MAX_Y} dots={dots} />
+      <DotpadScreen
+        maxX={SCREEN_MAX_X}
+        maxY={SCREEN_MAX_Y}
+        dots={isDiagramShown ? PieChart : dots}
+        onClick={() => {
+          setIsDiagramShown(true);
+        }}
+      />
 
       {!isLayerView && (
         <>
           <ButtonSum
             onLeftArrowClick={goPrevPage}
             onRightArrowClick={goNextPage}
+            onButton1Click={() => {
+              setIsDiagramShown(false);
+            }}
           />
 
           <BrailleSencenceScreen

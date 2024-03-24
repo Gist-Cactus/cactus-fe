@@ -2,7 +2,7 @@ export interface Dot {
   x: number;
   y: number;
   enabled?: boolean;
-  targetObjectId?: string;
+  targetObjectId?: number;
   isHighlighted?: boolean;
 }
 
@@ -49,6 +49,7 @@ export interface Point {
 type BoundingBoxType = "text" | "title" | "image" | "diagram";
 
 export interface BoundingBox {
+  id: number;
   start: Point;
   size: Point;
   type: BoundingBoxType;
