@@ -1,17 +1,25 @@
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getPdfStatus, postPdf } from "src/api/pdf/pdf";
 import { createSession } from "src/api/session/session";
 import Icons from "src/assets/Icons";
 import colors from "src/colors";
 import Loading from "src/components/loading/Loading";
+import LocalstorageKeys from "src/localstorage";
+import Paths from "src/paths";
 import styled from "styled-components";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isPdfUploaded, setIsPdfUploaded] = useState(false);
-  const [sessionUuid, setSessionUuid] = useState<string | null>(null);
   const [isPdfProcessing, setIsPdfProcessing] = useState<boolean | null>(null);
+
+  const [sessionUuid, setSessionUuid] = useState<string | null>(null);
+  const [title, setTitle] = useState<string | null>(null);
+  const [presentationId, setPresentationId] = useState<number | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -20,9 +28,12 @@ const HomePage = () => {
 
   const pdfSubmitMutation = useMutation({
     mutationFn: postPdf,
-    onSuccess: () => {
+    onSuccess: (data) => {
       setIsPdfUploaded(true);
       setIsPdfProcessing(true);
+
+      if (!data) return;
+      setPresentationId(data.id);
     },
   });
 
@@ -42,6 +53,23 @@ const HomePage = () => {
     });
   };
 
+  const handleLetsgo = () => {
+    console.log("clicked");
+
+    if (!sessionUuid) return;
+    if (!presentationId) return;
+    if (!title) return;
+
+    localStorage.setItem(LocalstorageKeys.SESSION_UUID, sessionUuid);
+    localStorage.setItem(
+      LocalstorageKeys.PRESENTATION_ID,
+      presentationId.toString(),
+    );
+    localStorage.setItem(LocalstorageKeys.TITLE, title);
+
+    navigate(Paths.SLIDES);
+  };
+
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
 
@@ -50,7 +78,15 @@ const HomePage = () => {
         const pdfStatus = await getPdfStatus({ sessionUuid });
         console.log("PDF status:", pdfStatus);
 
-        if (pdfStatus.status === "COMPLETE") {
+        const pdfInfo = pdfStatus.presentations[0];
+
+        if (pdfInfo) {
+          if (pdfInfo.title) setTitle(pdfInfo.title);
+          if (pdfInfo.sessionUuid) setSessionUuid(pdfInfo.sessionUuid);
+          if (pdfInfo.id) setPresentationId(pdfInfo.id);
+        }
+
+        if (pdfInfo.status === "COMPLETE") {
           // PDF processing is complete, perform any necessary actions
           setIsPdfProcessing(false);
           clearInterval(intervalId);
@@ -88,6 +124,8 @@ const HomePage = () => {
       )}
 
       <FileSelectButton htmlFor="file-input">SELECT .pdf FILE</FileSelectButton>
+
+      <button onClick={handleLetsgo}>letsgo</button>
 
       <FileInput
         id="file-input"

@@ -25,8 +25,8 @@ const SlideViewWrapper = styled.div<{
     props.$isLayerView &&
     css`
       transform: rotate3d(0, -1, 0, 50deg);
-      margin-right: -300px;
-      opacity: 0.7;
+      margin-right: -200px;
+      opacity: 0.5;
     `}
 
   transition: 

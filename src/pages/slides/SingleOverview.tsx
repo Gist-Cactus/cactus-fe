@@ -22,9 +22,10 @@ const SingleOverview = ({
         style={{
           fontSize: "18px",
           fontWeight: 600,
+          color: isSelected ? colors.dots.highlighted : undefined,
         }}
       >
-        {id + 1}
+        {id}
       </p>
     </SingleOverviewWrapper>
   );
@@ -49,7 +50,7 @@ const OverviewImage = styled.img<{ $isSelected: boolean }>`
   ${(props) =>
     props.$isSelected &&
     css`
-      outline: 1px solid ${colors.common.white};
+      outline: 4px solid ${colors.dots.highlighted};
     `}
 `;
 

@@ -683,6 +683,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mantine/hooks@npm:^7.6.2":
+  version: 7.6.2
+  resolution: "@mantine/hooks@npm:7.6.2"
+  peerDependencies:
+    react: ^18.2.0
+  checksum: d02c0cfd41456f89cd6bbf9f85abafa42b3f708895d2492cb3b15598f73eac6672b77115245c051506a46f9de82878087f4898ad3805cc54ff0700bb97e9f120
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -4456,6 +4465,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "sample-front@workspace:."
   dependencies:
+    "@mantine/hooks": ^7.6.2
     "@tanstack/react-query": ^5.28.6
     "@types/eslint": ^8.56.2
     "@types/node": ^20.11.5

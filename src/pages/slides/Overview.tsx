@@ -1,7 +1,7 @@
 import colors from "src/colors";
 import { easeOutCubic } from "src/defaults";
 import { Slide } from "src/types";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 import SingleOverview from "./SingleOverview";
 
@@ -26,7 +26,11 @@ const Overview = ({
   return (
     <OverviewWrapper $isOverviewOpen={isOverviewOpen}>
       <OverviewTitleWrapper>
-        <h1 style={{ fontSize: "26px", fontWeight: "600" }}>{title}</h1>
+        <h1
+          style={{ fontSize: "26px", fontWeight: "600", lineBreak: "anywhere" }}
+        >
+          {title}
+        </h1>
 
         <p style={{ fontSize: "12px" }}>
           SESSION{" "}
@@ -38,11 +42,11 @@ const Overview = ({
       {slides.map((item) => (
         <SingleOverview
           key={item.id}
-          id={item.id}
+          id={item.order}
           src={item.src}
-          isSelected={currentSlide === item.id}
+          isSelected={currentSlide === item.order}
           onClick={() => {
-            setCurrentSlide(item.id);
+            setCurrentSlide(item.order);
           }}
         />
       ))}

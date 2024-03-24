@@ -5,6 +5,7 @@ interface ViewScaleWrapperProps {
   children: React.ReactNode;
   isSmall: boolean;
   scale: number;
+  layerScale: number;
   isLayerView: boolean;
   zIndex: number;
 }
@@ -13,6 +14,7 @@ const ViewScaleWrapper = ({
   children,
   isSmall,
   scale,
+  layerScale,
   isLayerView,
   zIndex,
 }: ViewScaleWrapperProps) => {
@@ -21,6 +23,7 @@ const ViewScaleWrapper = ({
       $isSmall={isSmall}
       $isLayerView={isLayerView}
       $scale={scale}
+      $layerScale={layerScale}
       $zIndex={zIndex}
     >
       {children}
@@ -31,6 +34,7 @@ const ViewScaleWrapper = ({
 const ViewScaleWrap = styled.div<{
   $isSmall: boolean;
   $scale: number;
+  $layerScale: number;
   $isLayerView: boolean;
   $zIndex: number;
 }>`
@@ -43,8 +47,8 @@ const ViewScaleWrap = styled.div<{
   ${(props) =>
     props.$isLayerView &&
     css`
-      transform: rotate3d(0, -1, 0, 50deg);
-      opacity: 0.7;
+      transform: scale(${props.$layerScale}) rotate3d(0, -1, 0, 50deg);
+      opacity: 0.5;
     `}
 
   transition: transform ${easeOutCubic} 0.5s, opacity 0.5s;

@@ -1,6 +1,6 @@
 import { Dot } from "src/types";
 
-const ANCHOR_POINT: Dot = { x: 0, y: 0 };
+const ANCHOR_POINT: Dot = { x: -2, y: -1 };
 
 export interface MarkFunctionProps {
   x: number;
