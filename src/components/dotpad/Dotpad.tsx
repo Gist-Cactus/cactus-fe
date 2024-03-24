@@ -1,5 +1,5 @@
 import { useState } from "react";
-import cactusArt from "src/assets/cactusArt";
+import cactusArt, { PieChart } from "src/assets/cactusArt";
 import { MAX_X, MAX_Y } from "src/defaults";
 import { Dot } from "src/types";
 import brailleConverter from "src/util/brailleConverter";
@@ -14,6 +14,8 @@ interface DotpadProps {
 }
 
 const Dotpad = ({ isLayerView, dots }: DotpadProps) => {
+  const [isDiagramShown, setIsDiagramShown] = useState<boolean>(false);
+
   // screen-related
   const SCREEN_MAX_X = MAX_X;
   const SCREEN_MAX_Y = MAX_Y;
@@ -67,13 +69,23 @@ const Dotpad = ({ isLayerView, dots }: DotpadProps) => {
         gap: SLIDE_SENTENCE_GAP,
       }}
     >
-      <DotpadScreen maxX={SCREEN_MAX_X} maxY={SCREEN_MAX_Y} dots={dots} />
+      <DotpadScreen
+        maxX={SCREEN_MAX_X}
+        maxY={SCREEN_MAX_Y}
+        dots={isDiagramShown ? PieChart : dots}
+        onClick={() => {
+          setIsDiagramShown(true);
+        }}
+      />
 
       {!isLayerView && (
         <>
           <ButtonSum
             onLeftArrowClick={goPrevPage}
             onRightArrowClick={goNextPage}
+            onButton1Click={() => {
+              setIsDiagramShown(false);
+            }}
           />
 
           <BrailleSencenceScreen
