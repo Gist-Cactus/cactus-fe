@@ -6,12 +6,16 @@ interface PatternDrawerProps {
   start: Dot;
   end: Dot;
   pattern: (props: PatternFunctionProps) => Dot[];
+  targetObjectId?: number;
+  isHighlighted?: boolean;
 }
 
 const patternDrawer = ({
   start: { x: x1, y: y1 },
   end: { x: x2, y: y2 },
   pattern,
+  targetObjectId,
+  isHighlighted,
 }: PatternDrawerProps): Dot[] => {
   const dots: Dot[] = [];
 
@@ -23,7 +27,12 @@ const patternDrawer = ({
 
   for (let i = 0; i <= xEnd; i += 2) {
     for (let j = 0; j <= yEnd; j += 2) {
-      const patternDots = pattern({ x: x1 + i, y: y1 + j });
+      const patternDots = pattern({
+        x: x1 + i,
+        y: y1 + j,
+        targetObjectId,
+        isHighlighted,
+      });
       dots.push(...patternDots);
     }
   }

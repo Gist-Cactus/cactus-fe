@@ -1,4 +1,6 @@
+import { useAtomValue } from "jotai";
 import React from "react";
+import { hoverElementIdAtom } from "src/store";
 import { Dot } from "src/types";
 
 import SingleDot from "./SingleDot";
@@ -15,6 +17,8 @@ const DotpadScreen = ({ maxX, maxY, dots }: DotpadScreenProps) => {
 
   const GAP = "4px";
 
+  const hoveredElementId = useAtomValue(hoverElementIdAtom);
+
   return (
     <div style={{ display: "flex", gap: GAP, flexDirection: "column" }}>
       {yArray.map((_, y) => (
@@ -26,7 +30,11 @@ const DotpadScreen = ({ maxX, maxY, dots }: DotpadScreenProps) => {
                 <SingleDot
                   key={`${x},${y}`}
                   isOn={true}
-                  isHighlighted={selectedDot.isHighlighted ?? false}
+                  isHighlighted={
+                    (selectedDot.isHighlighted ||
+                      selectedDot.targetObjectId === hoveredElementId) ??
+                    false
+                  }
                   onClick={() => {
                     selectedDot &&
                       console.log(

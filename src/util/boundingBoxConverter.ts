@@ -4,6 +4,7 @@ const boundingBoxConverter = (element: Element, scale: number): BoundingBox => {
   const elementContent: ElementContent = JSON.parse(element.content);
 
   return {
+    id: element.id,
     start: {
       x: elementContent.Geometry.BoundingBox.Left * scale,
       y: elementContent.Geometry.BoundingBox.Top * scale,

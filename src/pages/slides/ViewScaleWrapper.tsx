@@ -48,7 +48,7 @@ const ViewScaleWrap = styled.div<{
     props.$isLayerView &&
     css`
       transform: scale(${props.$layerScale}) rotate3d(0, -1, 0, 50deg);
-      opacity: 0.5;
+      opacity: 1;
     `}
 
   transition: transform ${easeOutCubic} 0.5s, opacity 0.5s;
