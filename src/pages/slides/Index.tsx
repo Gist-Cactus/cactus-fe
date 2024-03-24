@@ -128,27 +128,27 @@ const SlidesPage = () => {
   const [isOverviewOpen, setIsOverviewOpen] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(1);
 
+  const goNextSlide = () => {
+    if (!imageSequence) return;
+    setCurrentSlide((prev) => {
+      if (prev === imageSequence.length) return prev;
+      return prev + 1;
+    });
+  };
+
+  const goPrevSlide = () => {
+    if (!imageSequence) return;
+    setCurrentSlide((prev) => {
+      if (prev === 1) return prev;
+      return prev - 1;
+    });
+  };
+
   useHotkeys([
-    [
-      "arrowRight",
-      () => {
-        if (!imageSequence) return;
-        setCurrentSlide((prev) => {
-          if (prev === imageSequence.length) return prev;
-          return prev + 1;
-        });
-      },
-    ],
-    [
-      "arrowLeft",
-      () => {
-        if (!imageSequence) return;
-        setCurrentSlide((prev) => {
-          if (prev === 1) return prev;
-          return prev - 1;
-        });
-      },
-    ],
+    ["arrowRight", goNextSlide],
+    ["arrowDown", goNextSlide],
+    ["arrowLeft", goPrevSlide],
+    ["arrowUp", goPrevSlide],
   ]);
 
   const [isSlideView, setIsSlideView] = useState(true);
